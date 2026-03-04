@@ -1,0 +1,281 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: #f1f5f9;
+}
+
+.container {
+    display: flex;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #1e293b;
+    color: white;
+    padding: 20px;
+    position: fixed;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    padding: 12px;
+    cursor: pointer;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.sidebar ul li:hover {
+    background: #334155;
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 250px;
+    padding: 40px;
+    width: 100%;
+}
+
+.content-section {
+    display: none;
+}
+
+.content-section.active {
+    display: block;
+}
+
+/* Dashboard Cards */
+.cards {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    width: 380px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    text-align: center;
+}
+canvas {
+    height: 350px !important;
+}
+.chart-box {
+    height: 420px;
+}
+.card h3 {
+    margin-bottom: 10px;
+}
+/* Charts Horizontal Layout */
+.charts-container {
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.chart-box {
+    flex: 1;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.chart-box h3 {
+    margin-bottom: 15px;
+}
+
+.chart-box canvas {
+    width: 100% !important;
+    height: 350px !important;
+}
+
+/* Inputs */
+input, button {
+    padding: 10px;
+    margin: 10px 5px 10px 0;
+}
+
+button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+/* --- Title Input Section --- */
+.title-check-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+    max-width: 500px;
+}
+
+.title-input {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 2px solid #2563eb;
+    border-radius: 8px;
+    outline: none;
+    width: 100%;
+}
+
+.title-input:focus {
+    border-color: #1e40af;
+}
+
+#titleResult {
+    margin-top: 8px;
+    font-style: italic;
+    color: #e11d48; /* red for duplicate warning */
+}
+
+/* --- Styled Buttons (both sections) --- */
+.styled-button {
+    padding: 12px 50px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+    display: inline-block;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.styled-button:hover {
+    background: #1e40af;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+}
+
+/* --- File Upload Section --- */
+.file-upload-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* horizontal spacing */
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.file-button-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.file-input {
+    display: none; /* hide default input */
+}
+
+#fileName {
+    margin-top: 10px;
+    font-style: italic;
+    color: #555;
+}
+
+/* Upload Section */
+#upload {
+    padding: 40px;
+    align-content: center;
+}
+
+/* Upload Card Container */
+.upload-card {
+    max-width: 1050px;
+    background: white;
+    height: 550px;
+    padding: 30px;
+    border-radius: 16px;
+    align-items: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+}
+
+/* Form Layout */
+#uploadForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Inputs & Select */
+#uploadForm input,
+#uploadForm select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+    background: #f9fafb;
+}
+
+/* Focus Effect */
+#uploadForm input:focus,
+#uploadForm select:focus {
+    border-color: #2563eb;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Upload Button */
+.upload-btn {
+    padding: 12px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-btn:hover {
+    background: #1e40af;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.3);
+}
+
+/* Success Message */
+#uploadMessage {
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #16a34a;
+}
+
+#upload h1 {
+    font-size: 32px;
+    font-weight: 700;
+    text-align: left;
+
+    color: #000000;
+    letter-spacing: 1px;
+    margin-top: 1px;
+}

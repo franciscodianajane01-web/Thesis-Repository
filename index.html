@@ -14,11 +14,11 @@
     <aside class="sidebar">
         <h2 class="logo">AcadCore</h2>
         <ul>
-            <li onclick="showSection('dashboard')">🏠 Dashboard</li>
-            <li onclick="showSection('repository')">📚 Repository</li>
-            <li onclick="showSection('plagiarism')">🧠 Plagiarism Check</li>
-            <li onclick="showSection('qr')">📷 QR Borrowing</li>
-            <li onclick="showSection('upload')">⬆ Upload Thesis</li>
+            <li data-section="dashboard" onclick="showSection('dashboard')" class="nav-item active"><span class="nav-icon">🏠</span><span>Dashboard</span></li>
+            <li data-section="repository" onclick="showSection('repository')" class="nav-item"><span class="nav-icon">📚</span><span>Repository</span></li>
+            <li data-section="plagiarism" onclick="showSection('plagiarism')" class="nav-item"><span class="nav-icon">🧠</span><span>Title Similarity</span></li>
+            <li data-section="qr" onclick="showSection('qr')" class="nav-item"><span class="nav-icon">📷</span><span>QR Borrowing</span></li>
+            <li data-section="upload" onclick="showSection('upload')" class="nav-item"><span class="nav-icon">⬆</span><span>Upload Thesis</span></li>
         </ul>
     </aside>
 
@@ -26,197 +26,172 @@
     <main class="main-content">
 
        <!-- Dashboard -->
-<section id="dashboard" class="content-section active">
-    <h1>Dashboard Overview</h1>
+       <section id="dashboard" class="content-section active">
+           <header class="section-header">
+               <h1>Dashboard Overview</h1>
+               <p class="section-desc">Monitor your thesis repository at a glance</p>
+           </header>
 
-    <div class="cards">
-        <div class="card">
-            <h3>Total Theses</h3>
-            <p>0</p>
-        </div>
-        <div class="card">
-            <h3>Departments</h3>
-            <p>6</p>
-        </div>
-        <div class="card">
-            <h3>No. of Borrowed Theses</h3>
-            <p>0</p>
-        </div>
-    </div>
+           <div class="cards">
+               <div class="card card-stat">
+                   <div class="card-icon">📄</div>
+                   <h3>Total Theses</h3>
+                   <p class="card-value">0</p>
+               </div>
+               <div class="card card-stat">
+                   <div class="card-icon">🏛️</div>
+                   <h3>Departments</h3>
+                   <p class="card-value">6</p>
+               </div>
+               <div class="card card-stat">
+                   <div class="card-icon">📖</div>
+                   <h3>Borrowed Theses</h3>
+                   <p class="card-value" id="borrowedCount">0</p>
+               </div>
+           </div>
 
-    <h2 style="margin-top:40px;">Analytics Overview</h2>
+           <h2 class="subsection-title">Analytics Overview</h2>
 
-<div class="charts-container">
-    <div class="chart-box">
-        <h3>Uploaded Thesis by Department</h3>
-        <canvas id="departmentChart"></canvas>
-    </div>
+           <div class="charts-container">
+               <div class="chart-box">
+                   <h3>Uploaded Thesis by Department</h3>
+                   <canvas id="departmentChart"></canvas>
+               </div>
 
-    <div class="chart-box">
-        <h3>Most Searched Research Topics</h3>
-        <canvas id="searchChart"></canvas>
-    </div>
-</div>
-</section>
+               <div class="chart-box">
+                   <h3>Most Searched Research Topics</h3>
+                   <canvas id="searchChart"></canvas>
+               </div>
+           </div>
+       </section>
 
-      <!-- Repository -->
-<section id="repository" class="content-section">
-    <h1>Repository</h1>
+       <!-- Repository -->
+       <section id="repository" class="content-section">
+           <header class="section-header">
+               <h1>Repository</h1>
+               <p class="section-desc">Search and browse theses by department</p>
+           </header>
 
-   <!-- Search Bar -->
-<div class="search-container">
-    <input type="text" id="searchInput" placeholder="Search for theses...">
-    <select id="departmentFilter">
-        <option value="">All Departments</option>
-        <option value="Highschool">Highschool</option>
-        <option value="BCCS">BSCS</option>
-        <option value="BSCRIM">BSCRIM</option>
-        <option value="BSE">BSE</option>
-        <option value="BSBA">BSBA</option>
-        <option value="BSHM">BSHM</option>
-    </select>
-    <button onclick="searchThesis()">Search</button>
-</div>
+           <div class="search-card">
+               <div class="search-container">
+                   <input type="text" id="searchInput" placeholder="Search for theses...">
+                   <select id="departmentFilter">
+                       <option value="">All Departments</option>
+                       <option value="Highschool">Highschool</option>
+                       <option value="BSCS">BSCS</option>
+                       <option value="BSCRIM">BSCRIM</option>
+                       <option value="BSE">BSE</option>
+                       <option value="BSBA">BSBA</option>
+                       <option value="BSHM">BSHM</option>
+                   </select>
+                   <button onclick="searchThesis()" class="btn-primary">Search</button>
+               </div>
+           </div>
 
-<!-- Department Modules -->
-<div id="departmentModules" class="department-modules">
-    <!-- JS will populate each department folder -->
-</div>
+           <div id="departmentModules" class="department-modules">
+               <!-- JS will populate each department folder -->
+           </div>
+       </section>
 
-<style>
-/* Container */
-.search-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin: 20px 0;
-    align-items: center;
-    justify-content: flex-start;
-}
+       <!-- Title Similarity Detection Section -->
+       <section id="plagiarism" class="content-section">
+           <header class="section-header">
+               <h1>Title Similarity Detection</h1>
+               <p class="section-desc">Check for similar titles before submitting</p>
+           </header>
+           <div class="title-check-wrapper">
+               <input type="text" id="similarTitleInput" class="title-input" placeholder="Enter your thesis title">
+               <button class="styled-button" onclick="checkTitleSimilarity()">Check Similarity</button>
+           </div>
+           <p id="plagResult"></p>
+       </section>
 
-/* Input & Select */
-.search-container input,
-.search-container select {
-    padding: 12px 50px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 16px;
-    outline: none;
-    transition: all 0.3s ease;
-    min-width: 200px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-
-.search-container input:focus,
-.search-container select:focus {
-    padding: 12px 50px;
-    border-color: #2563eb;
-    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
-}
-
-/* Button */
-.search-container button {
-    padding: 12px 50px;
-    background: #2563eb;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
-}
-
-.search-container button:hover {
-    background: #1e40af;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
-}
-
-/* Department Modules */
-.department-modules {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;           /* increased spacing between cards */
-    margin-top: 30px;    /* more space above the section */
-    justify-content: flex-start; 
-    width: 100%;         /* full width */
-    min-height: 400px;   /* increase height of the modules area */
-    padding: 20px;       /* padding inside the section */
-}
-
-
-
-.department-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-}
-</style>
-</section>
-
-    <!-- Title Search Section -->
-    <section id="title-search" class="content-section">
-        <h1>Check Thesis Title</h1>
-        <div class="title-check-wrapper">
-            <input type="text" id="thesisTitle" placeholder="Enter your thesis title" class="title-input">
-            <button class="styled-button" id="searchTitle" onclick="searchTitle()">Search Repository</button>
-            <span id="titleResult"></span>
-        </div>
-    </section>
-
-    <!-- Plagiarism Detection Section -->
-    <section id="plagiarism" class="content-section">
-        <h1>Plagiarism Detection</h1>
-        <div class="file-upload-wrapper">
-            <div class="file-button-wrapper">
-                <input type="file" id="plagFile" class="file-input">
-                <label for="plagFile" class="styled-button">Choose File</label>
-                <span id="fileName">No file chosen</span>
-            </div>
-            <button class="styled-button" onclick="checkPlagiarism()">Check Similarity</button>
-        </div>
-        <p id="plagResult"></p>
-    </section>
-        <!-- QR Borrowing -->
-        <section id="qr" class="content-section">
+       <!-- QR Borrowing -->
+       <section id="qr" class="content-section">
+        <header class="section-header">
             <h1>QR Borrowing</h1>
-            <button onclick="generateQR()">Generate QR Code</button>
-            <div id="qrDisplay"></div>
-        </section>
+            <p class="section-desc">Record borrower details and generate a QR code for the hardbound thesis</p>
+        </header>
+    
+        <div class="qr-container">
+            <!-- Form on the left -->
+            <div class="upload-card qr-form-card">
+                <form id="qrForm">
+                    <div class="input-group">
+                        <label for="borrowerName">Name of Borrower</label>
+                        <input type="text" id="borrowerName" placeholder="Enter borrower name" required>
+                    </div>
+    
+                    <div class="input-group">
+                        <label for="qrTitleInput">Thesis Title</label>
+                        <input type="text" id="qrTitleInput" placeholder="Enter thesis title" required>
+                    </div>
+    
+                    <div class="input-group">
+                        <label for="borrowDate">Date Borrowed</label>
+                        <input type="date" id="borrowDate" required>
+                    </div>
+    
+                    <div class="input-group">
+                        <label for="returnDate">Return Date</label>
+                        <input type="date" id="returnDate" required>
+                    </div>
+    
+                    <div class="qr-button-group">
+                        <button type="button" class="styled-button" onclick="borrowBook()">
+                            Borrow & Generate QR
+                        </button>
+                        <button type="button" class="styled-button" onclick="printQR()">
+                            Print QR Code
+                        </button>
+                    </div>
+                </form>
+            </div>
+    
+            <!-- QR Display on the right -->
+            <div id="qrDisplay" class="qr-card upload-card">
+                <p>QR code and borrower info will appear here after generating.</p>
+            </div>
+        </div>
+    </section>
 
-        <!-- Upload -->
-<section id="upload" class="content-section">
- 
+       <!-- Upload -->
+       <section id="upload" class="content-section">
+           <header class="section-header">
+               <h1>Upload Thesis</h1>
+               <p class="section-desc">Add new theses to the repository</p>
+           </header>
 
-    <div class="upload-card">
-        <form id="uploadForm">
-            <input type="text" id="uploadTitle" placeholder="Thesis Title" required>
-            <input type="text" id="uploadAuthor" placeholder="Author Name" required>
-            <input type="text" id="uploadYear" placeholder="Year" required>
+           <div class="upload-card">
+               <form id="uploadForm">
+                   <input type="text" id="uploadTitle" placeholder="Thesis Title" required>
+                   <input type="text" id="uploadAuthor" placeholder="Author Name" required>
+                   <input type="text" id="uploadYear" placeholder="Year" required>
 
-            <select id="uploadDepartment" required>
-                <option value="">Select Department</option>
-                <option value="Highschool">Highschool</option>
-                <option value="BSCS">BSCS</option>
-                <option value="BSCRIM">BSCRIM</option>
-                <option value="BSE">BSE</option>
-                <option value="BSBA">BSBA</option>
-                <option value="BSHM">BSHM</option>
-            </select>
+                   <select id="uploadDepartment" required>
+                       <option value="">Select Department</option>
+                       <option value="Highschool">Highschool</option>
+                       <option value="BSCS">BSCS</option>
+                       <option value="BSCRIM">BSCRIM</option>
+                       <option value="BSE">BSE</option>
+                       <option value="BSBA">BSBA</option>
+                       <option value="BSHM">BSHM</option>
+                   </select>
 
-            <input type="file" required>
+                   <input type="file" multiple required>
 
-            <button type="submit" class="upload-btn">Upload Thesis</button>
-        </form>
+                   <button type="submit" class="upload-btn">Upload Thesis</button>
+               </form>
 
-        <p id="uploadMessage"></p>
-    </div>
-</section>
+               <p id="uploadMessage"></p>
+           </div>
+       </section>
 
     </main>
 </div>
 
 <script src="script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </body>
 </html>
